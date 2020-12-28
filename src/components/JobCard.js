@@ -9,52 +9,57 @@ import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 300,
     margin: 10,
     boxShadow: 3,
     "&:hover": {
-      background: grey[200]
-    }
+      background: grey[200],
+    },
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   avatar: {
     // backgroundColor: grey[500]
-  }
+  },
 }));
 
 export default function JobCard(props) {
   const classes = useStyles();
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root} variant='outlined'>
       <CardHeader
         avatar={
           <Avatar
-            variant="rounded"
-            aria-label="description"
+            variant='rounded'
+            aria-label='description'
             src={props.companyLogo}
             className={classes.avatar}
           >
-            {props.companyLogo === undefined ? String(props.companyName).charAt(0) : null}
+            {props.companyLogo === undefined ? props.companyInitial : null}
           </Avatar>
         }
         title={props.companyName}
         subheader={props.jobTitle}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p" paragraph>
+        <Typography
+          variant='body2'
+          color='textSecondary'
+          component='p'
+          paragraph
+        >
           {props.shortDesc}
         </Typography>
       </CardContent>

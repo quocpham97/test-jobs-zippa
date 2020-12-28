@@ -2,17 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import JobCard from "./JobCard";
 import FilterJob from "./FilterJob";
-import CustomizedNativeSelect from "./CustomizedNativeSelect";
+// import CustomizedNativeSelect from "./CustomizedNativeSelect";
+import "../styles/job.style.css";
 
 function Job() {
-  //store all jobs get from api
+  // Store all jobs get from api
   const [jobs, setJobs] = useState([]);
 
-  //store first 10 jobs
+  // Store first 10 jobs
   const [tenJobs, setTenJobs] = useState([]);
 
-  //store company name list
+  // Store company name list
   const [companyNames, setCompanyNames] = useState([]);
+
+  const [companyName, setCompanyName] = useState("first10jobs");
+  const [isSevenLastDays, setIsSevenLastdays] = useState(false);
+
+  // Get jobs from api
   useEffect(() => {
     axios
       .post("https://www.zippia.com/api/jobs/", {
@@ -22,28 +28,70 @@ function Job() {
         jobTitle: "Business Analyst",
         locations: [],
         numJobs: 20,
-        previousListingHashes: []
+        previousListingHashes: [],
       })
       .then((result) => {
         setJobs(result.data.jobs);
         setTenJobs(result.data.jobs.slice(0, 10));
         setCompanyNames(
           result.data.jobs
-            .map((filter) => filter.companyName) //filter only company name from data
+            .map((filter) => filter.companyName) // Filter only company name from data
             .filter(function (value, index, self) {
-              //make sure company name not duplicate
+              // Make sure company name not duplicate
               return self.indexOf(value) === index;
             })
         );
       });
   }, []);
 
+  function handleCompanyChange(companyName) {
+    setCompanyName(companyName);
+    if (!isSevenLastDays) {
+      if (companyName === "first10jobs") setTenJobs(jobs.slice(0, 10));
+      else {
+        setTenJobs(
+          // Filter jobs by company name
+          jobs.filter(function (company) {
+            return company.companyName === companyName;
+          })
+        );
+      }
+    } else {
+      if (companyName === "first10jobs") setTenJobs(jobs.slice(0, 10));
+      else {
+        setTenJobs(
+          // Filter jobs by company name
+          jobs.filter(function (company) {
+            var d = new Date();
+            return (
+              company.companyName === companyName &&
+              Date.parse(company.OBJpostingDate) >= d.setDate(d.getDate() - 7)
+            );
+          })
+        );
+      }
+    }
+  }
+
+  function handleButtonChange(flag) {
+    setIsSevenLastdays(flag);
+  }
+
+  // Call handleCompanyChange whenever isSevenLastDays change
+  useEffect(() => {
+    handleCompanyChange(companyName);
+    // eslint-disable-next-line
+  }, [isSevenLastDays]);
+
   return (
     <div>
-      {/* <FilterJob companyNames={companyNames} jobs={jobs} /> */}
-      <CustomizedNativeSelect companyNames={companyNames} />
+      <FilterJob
+        companyNames={companyNames}
+        onChange={handleCompanyChange}
+        handleButtonChange={handleButtonChange}
+      />
 
-      <div className="jobcard-container">
+      <div className='jobcard-container'>
         {tenJobs.map((job) => (
           <JobCard {...job} key={job.jobId} />
         ))}

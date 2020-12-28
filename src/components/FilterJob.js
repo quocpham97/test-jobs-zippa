@@ -1,13 +1,16 @@
 import React from "react";
 import CustomizedButton from "./CustomizedButton";
 import CustomizedNativeSelect from "./CustomizedNativeSelect";
+import "../styles/filterjob.style.css";
 
 function FilterJob(props) {
-  console.log(props.companyNames);
   return (
-    <div>
-      <CustomizedNativeSelect companyNames={props.companyNames} />
-      <CustomizedButton />
+    <div className='filter-job-container'>
+      <CustomizedNativeSelect
+        companyNames={props.companyNames}
+        onChange={props.onChange}
+      />
+      <CustomizedButton handleButtonChange={props.handleButtonChange} />
     </div>
   );
 }
