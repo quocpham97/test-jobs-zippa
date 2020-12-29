@@ -6,7 +6,7 @@ import { green } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(2),
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.only("xs")]: {
       margin: theme.spacing(1)
     }
   }

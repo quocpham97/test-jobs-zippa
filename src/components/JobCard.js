@@ -12,26 +12,15 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 300,
     margin: 10,
     boxShadow: 3,
+
     "&:hover": {
       background: grey[200]
-    }
+    },
+    minHeight: 100
   },
-  media: {
-    height: 0,
-    paddingTop: "56.25%" // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
-  },
-  avatar: {
-    // backgroundColor: grey[500]
+  cardHeader: {
+    minHeight: 80,
+    alignItems: "flex-start"
   }
 }));
 
@@ -41,18 +30,14 @@ export default function JobCard(props) {
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
-          <Avatar
-            variant="rounded"
-            aria-label="description"
-            src={props.companyLogo}
-            className={classes.avatar}
-          >
+          <Avatar variant="rounded" aria-label="description" src={props.companyLogo}>
             {props.companyLogo === undefined ? props.companyInitial : null}
           </Avatar>
         }
         title={props.companyName}
         subheader={props.jobTitle}
         titleTypographyProps={{ variant: "body1" }}
+        className={classes.cardHeader}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p" paragraph>
