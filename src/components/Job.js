@@ -28,7 +28,7 @@ function Job() {
         jobTitle: "Business Analyst",
         locations: [],
         numJobs: 20,
-        previousListingHashes: [],
+        previousListingHashes: []
       })
       .then((result) => {
         setJobs(result.data.jobs);
@@ -57,8 +57,17 @@ function Job() {
         );
       }
     } else {
-      if (companyName === "first10jobs") setTenJobs(jobs.slice(0, 10));
-      else {
+      if (companyName === "first10jobs") {
+        setTenJobs(
+          jobs
+            .filter(function (company) {
+              var d = new Date();
+              // Filter 10 jobs in last 7 days
+              return Date.parse(company.OBJpostingDate) >= d.setDate(d.getDate() - 7);
+            })
+            .slice(0, 10)
+        );
+      } else {
         setTenJobs(
           // Filter jobs by company name
           jobs.filter(function (company) {
@@ -91,7 +100,7 @@ function Job() {
         handleButtonChange={handleButtonChange}
       />
 
-      <div className='jobcard-container'>
+      <div className="jobcard-container">
         {tenJobs.map((job) => (
           <JobCard {...job} key={job.jobId} />
         ))}

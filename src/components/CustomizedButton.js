@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-import {
-  createMuiTheme,
-  makeStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
+import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
-  },
+    [theme.breakpoints.down("xs")]: {
+      margin: theme.spacing(0)
+    }
+  }
 }));
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: green[100],
+      main: green[100]
     },
     secondary: {
-      main: green[900],
-    },
-  },
+      main: green[900]
+    }
+  }
 });
 
 export default function CustomizedButton(props) {
@@ -36,7 +35,7 @@ export default function CustomizedButton(props) {
     <div>
       <ThemeProvider theme={theme}>
         <Button
-          variant='contained'
+          variant="contained"
           color={state ? "secondary" : "primary"}
           className={classes.margin}
           onClick={handleClick}
