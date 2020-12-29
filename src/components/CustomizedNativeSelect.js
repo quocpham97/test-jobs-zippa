@@ -7,15 +7,16 @@ import Select from "@material-ui/core/Select";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(3),
-    [theme.breakpoints.up("xs")]: {
+    // Responsive
+    [theme.breakpoints.only("xs")]: {
       margin: theme.spacing(1),
       with: 200
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.only("sm")]: {
       margin: theme.spacing(2),
       with: 300
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.only("md")]: {
       margin: theme.spacing(3),
       width: 350
     }
