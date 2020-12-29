@@ -12,9 +12,6 @@ function App() {
         <Redirect from="*" to="/test/jobs/" />
       </Switch>
     </Router>
-    // <div className="App">
-    //   <Job />
-    // </div>
   );
 }
 
