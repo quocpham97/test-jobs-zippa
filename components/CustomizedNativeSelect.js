@@ -30,7 +30,8 @@ export default function CustomizedNativeSelect(props) {
   const classes = useStyles();
 
   const handleChange = (event) => {
-    props.onChange(event.target.value);
+    // Update Job's companyName when selection changes
+    props.handleCompanyChange(event.target.value);
   };
 
   return (

@@ -28,6 +28,7 @@ export default function CustomizedButton(props) {
   const [state, setstate] = useState(false);
 
   const handleClick = () => {
+    // Update Job's isSevenLastDays flag when the button is clicked
     props.handleButtonChange(!state);
     setstate(!state);
   };

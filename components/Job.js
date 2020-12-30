@@ -31,7 +31,7 @@ function Job() {
       })
       .then((result) => {
         setJobs(result.data.jobs);
-        setTenJobs(result.data.jobs.slice(0, 10));
+        setTenJobs(result.data.jobs.slice(0, 10)); // Get first 10 jobs from result
         setCompanyNames(
           result.data.jobs
             .map((filter) => filter.companyName) // Filter only company name from data
@@ -95,14 +95,19 @@ function Job() {
     <div>
       <FilterJob
         companyNames={companyNames}
-        onChange={handleCompanyChange}
+        // Pass event handler to CustomizedNativeSelect component
+        handleCompanyChange={handleCompanyChange}
+        // Pass event handler to CustomizedButton component
         handleButtonChange={handleButtonChange}
       />
 
       <div className={styles.jobcardContainer}>
-        {tenJobs.map((job) => (
-          <JobCard {...job} key={job.jobId} />
-        ))}
+        {
+          // Job list
+          tenJobs.map((job) => (
+            <JobCard {...job} key={job.jobId} />
+          ))
+        }
       </div>
     </div>
   );
