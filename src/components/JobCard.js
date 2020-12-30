@@ -11,8 +11,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
     margin: 10,
-    boxShadow: 3,
-
     "&:hover": {
       background: grey[200]
     },
